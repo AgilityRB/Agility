@@ -1,155 +1,226 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agility Roblox Cheat</title>
-    <style>
-        body {
-            background-color: #0d0d0d;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            padding: 40px;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agility Executor</title>
+  <script type="module">
+    import { Application } from 'https://unpkg.com/@splinetool/runtime@0.9.475/build/runtime.js';
+    const canvas = document.getElementById('canvas3d');
+    const app = new Application(canvas);
+    app.load('https://prod.spline.design/ZsnVH2bEuwC6Tlnq/scene.splinecode');
+  </script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      background-color: #0d0d0d;
+      color: #fff;
+    }
 
-        h1 {
-            font-size: 50px;
-            margin-bottom: 15px;
-            color: #00ffcc;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-        }
+    /* Layers for interactive background */
+    #layers { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+    canvas, .layer { position:absolute; top:0; left:0; width:100%; height:100%; }
 
-        h2 {
-            color: #00cc99;
-            margin-top: 30px;
-        }
+    /* Overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      text-align: center;
+      z-index: 10;
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    h1 .highlight {
+      color: #00cc66;
+    }
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 1rem auto;
+      opacity: 0.8;
+    }
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-primary {
+      background-color: #006633;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: #004d26;
+    }
+    .btn-secondary {
+      background-color: #003322;
+      color: #00cc66;
+      border: 1px solid #00cc66;
+    }
+    .btn-secondary:hover {
+      background-color: #00261a;
+    }
+    .preview {
+      margin-top: 3rem;
+      max-width: 100%;
+      width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 128, 0.2);
+    }
 
-        p {
-            font-size: 18px;
-            margin-bottom: 25px;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .power-info {
-            background: rgba(0, 204, 153, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 600px;
-            margin: 30px auto;
-            border-left: 4px solid #00cc99;
-        }
-
-        .power-percent {
-            font-size: 48px;
-            font-weight: bold;
-            color: #00ffcc;
-            margin: 15px 0;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-        }
-
-        .image-placeholder {
-            width: 80%;
-            max-width: 600px;
-            height: 300px;
-            margin: 20px auto;
-            border-radius: 15px;
-            background: rgba(0, 204, 153, 0.05);
-            border: 2px dashed #00cc99;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ff5555;
-            font-weight: bold;
-        }
-
-        .buttons-container {
-            margin: 30px 0;
-        }
-
-        a.button {
-            display: inline-block;
-            margin: 10px 15px;
-            padding: 15px 35px;
-            background-color: #00cc99;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 10px;
-            transition: all 0.3s;
-            font-weight: bold;
-            min-width: 150px;
-        }
-
-        a.button:hover {
-            background-color: #009977;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.4);
-        }
-
-        .contacts {
-            margin-top: 50px;
-            font-size: 18px;
-            color: #aaaaaa;
-            line-height: 1.6;
-        }
-
-        .contacts a {
-            color: #00cc99;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .contacts a:hover {
-            color: #00ffcc;
-            text-decoration: underline;
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1, h2, p, .power-info, .image-placeholder, .buttons-container, .contacts {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        h2 { animation-delay: 0.1s; }
-        .power-info { animation-delay: 0.2s; }
-        .image-placeholder { animation-delay: 0.3s; }
-        .buttons-container { animation-delay: 0.4s; }
-        .contacts { animation-delay: 0.5s; }
-    </style>
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
-    <h1>Agility</h1>
-    <p>Мощный Roblox чит<br>Стабильность, простота и постоянные обновления</p>
+  <div id="layers">
+    <canvas id="networkCanvas"></canvas>
+    <canvas id="trailCanvas"></canvas>
+    <div id="vanta-bg" class="layer"></div>
+  </div>
 
-    <div class="power-info">
-        <h2>Насколько мощный Agility?</h2>
-        <p>Agility довольно мощный. 83% UNC, быстрое внедрение позволит вам получать удовольствие от его использования.</p>
-        <div class="power-percent">83%</div>
+  <canvas id="canvas3d"></canvas>
+  <div class="overlay">
+    <h1>Agility <span class="highlight">best of the best</span></h1>
+    <p>Experience unmatched performance and design with Agility – your powerful solution for executing code seamlessly in Roblox.</p>
+    <div class="buttons">
+      <a href="https://drive.google.com/file/d/1PS652gINfywe4PhBqf3STBgZERD99KIG/view?usp=sharing" target="_blank">
+        <button class="btn btn-primary">Download Agility</button>
+      </a>
+      <a href="https://t.me/AgilityRB" target="_blank">
+        <button class="btn btn-secondary">Telegram</button>
+      </a>
     </div>
+    <img src="agility-preview.png" alt="Agility Preview" class="preview" />
+  </div>
 
-     <img src="agility-preview.png" alt="Agility Cheat Interface" class="cheat-preview">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+  <script>
+    // 1. Network background (Three.js)
+    const netCanvas = document.getElementById('networkCanvas');
+    const netRenderer = new THREE.WebGLRenderer({ canvas: netCanvas, alpha:true });
+    const netScene = new THREE.Scene();
+    const netCam = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 1, 1000);
+    netCam.position.z=400;
+    let netPoints;
+    (function(){
+      netRenderer.setSize(innerWidth,innerHeight);
+      const geo=new THREE.BufferGeometry();
+      const verts=[]; 
+      for(let i=0;i<2000;i++){verts.push((Math.random()-.5)*600,(Math.random()-.5)*600,(Math.random()-.5)*600)}
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(verts,3));
+      const mat=new THREE.PointsMaterial({color:0x28a745,size:1});
+      netPoints=new THREE.Points(geo,mat);
+      netScene.add(netPoints);
+    })();
 
-    <div class="buttons-container">
-        <a href="https://drive.google.com/file/d/1TYEI5nOdJdrQzLVDGu9QBTyJaIkrLW8f/view?usp=sharing" 
-           class="button" 
-           target="_blank">Скачать</a>
-        <a href="https://t.me/AgilityRB" 
-           class="button" 
-           target="_blank">Телеграм</a>
-    </div>
+    // 2. Cursor trails
+    const trailCanvas=document.getElementById('trailCanvas');
+    const tCtx=trailCanvas.getContext('2d');
+    trailCanvas.width=innerWidth; trailCanvas.height=innerHeight;
+    const particles=[];
+    window.addEventListener('mousemove', e=>{
+      for(let i=0;i<5;i++) particles.push({x:e.clientX,y:e.clientY,alpha:1,size:Math.random()*4+1});
+    });
+    function drawTrails(){
+      tCtx.clearRect(0,0,innerWidth,innerHeight);
+      particles.forEach((p,i)=>{
+        p.alpha-=0.02; p.y-=1;
+        if(p.alpha<=0) particles.splice(i,1);
+        else{
+          tCtx.globalAlpha=p.alpha;
+          tCtx.beginPath(); tCtx.arc(p.x,p.y,p.size,0,2*Math.PI);
+          tCtx.fillStyle='#28a745'; tCtx.fill();
+        }
+      });
+      tCtx.globalAlpha=1;
+      requestAnimationFrame(drawTrails);
+    }
+    drawTrails();
 
-    <div class="contacts">
-        <p>Для связи и поддержки:<br>
-        TG: <a href="https://t.me/IWantBra1n">@IWantBra1n</a><br>
-        Discord: supomed</p>
-    </div>
+    // 3. Vanta Waves shader
+    VANTA.WAVES({ el:'#vanta-bg', mouseControls:true, touchControls:true, gyroControls:false, color:0x28a745, shininess:50, waveHeight:20, waveSpeed:1 });
+
+    // 4. Mouse ripple
+    document.body.addEventListener('click', e=>{
+      const r=document.createElement('span');
+      r.className='ripple'; r.style.left=`${e.clientX-2}px`; r.style.top=`${e.clientY-2}px`;
+      document.body.append(r);
+      setTimeout(()=>r.remove(),600);
+    });
+
+    // 5. Magnetic buttons
+    document.querySelectorAll('.btn').forEach(btn=>{
+      btn.addEventListener('mousemove', e=>{
+        const rect=btn.getBoundingClientRect();
+        const dx=e.clientX-(rect.left+rect.width/2);
+        const dy=e.clientY-(rect.top+rect.height/2);
+        btn.style.transform=`translate(${dx*0.2}px,${dy*0.2}px) scale(1.05)`;
+      });
+      btn.addEventListener('mouseleave', ()=>btn.style.transform='');
+    });
+
+    // 6. Tilt card
+    VanillaTilt.init(document.querySelector('#tilt-card'), { max:15, speed:400, glare:true, 'max-glare':0.4 });
+
+    // 7. Scroll-trigger animations
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.card').forEach(card=>{
+      gsap.fromTo(card, {y:50,opacity:0}, {
+        y:0, opacity:1, duration:1, ease:'power2.out',
+        scrollTrigger:{ trigger:card, start:'top 80%' }
+      });
+    });
+
+    // 8. Animate network & camera parallax
+    let mx=0,my=0;
+    document.addEventListener('mousemove', e=>{
+      mx=(e.clientX/innerWidth)*2-1;
+      my=-(e.clientY/innerHeight)*2+1;
+    });
+    (function anim(){
+      requestAnimationFrame(anim);
+      netPoints.rotation.x+=0.0005;
+      netPoints.rotation.y+=0.0007;
+      netCam.position.x+=(mx*50-netCam.position.x)*0.05;
+      netCam.position.y+=(my*50-netCam.position.y)*0.05;
+      netCam.lookAt(netScene.position);
+      netRenderer.render(netScene, netCam);
+    })();
+
+    window.addEventListener('resize', ()=>{
+      trailCanvas.width=innerWidth; trailCanvas.height=innerHeight;
+      netCam.aspect=innerWidth/innerHeight; netCam.updateProjectionMatrix();
+      netRenderer.setSize(innerWidth,innerHeight);
+    });
+  </script>
 </body>
 </html>
